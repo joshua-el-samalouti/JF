@@ -1,3 +1,3 @@
-# BrainfuckInterpreter
+# JF
  
-A brainfuck interpreter written in the Julia programming language
+An interpreter for the BF programming language written in the Julia programming language
