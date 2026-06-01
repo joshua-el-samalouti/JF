@@ -5,66 +5,66 @@ function brainfuck_interpreter(path, output_mode)
     open(path, "r") do file
         script = read(file, String)
 
-        a = Dict(
+        bytearray = Dict(
             1 => 0
         )
-        p = 1
-        i = 1
-        while i <= length(script)
-            if script[i] == '+'
-                if a[p] == 255
-                    a[p] = 0
+        pointer = 1
+        index = 1
+        while index <= length(script)
+            if script[index] == '+'
+                if bytearray[pointer] == 255
+                    bytearray[pointer] = 0
                 else
-                    a[p] = a[p] + 1
+                    bytearray[pointer] = bytearray[pointer] + 1
                 end
-            elseif script[i] == '-'
-                if a[p] == 0
-                    a[p] = 255
+            elseif script[index] == '-'
+                if bytearray[pointer] == 0
+                    bytearray[pointer] = 255
                 else
-                    a[p] = a[p] - 1
+                    bytearray[pointer] = bytearray[pointer] - 1
                 end
-            elseif script[i] == '>'
-                p += 1
-                if !haskey(a,p)
-                    a[p] = 0
+            elseif script[index] == '>'
+                pointer += 1
+                if !haskey(bytearray,pointer)
+                    bytearray[pointer] = 0
                 end
-            elseif script[i] == '<'
-                p -= 1
-                if !haskey(a,p)
-                    a[p] = 0
+            elseif script[index] == '<'
+                pointer -= 1
+                if !haskey(bytearray,pointer)
+                    bytearray[pointer] = 0
                 end
-            elseif script[i] == '['
-                if a[p] == 0
+            elseif script[index] == '['
+                if bytearray[pointer] == 0
                     depth = 1
                     while depth > 0
-                        i += 1
-                        if script[i] == '['
+                        index += 1
+                        if script[index] == '['
                             depth += 1
-                        elseif script[i] == ']'
+                        elseif script[index] == ']'
                             depth -= 1
                         end
                     end
                 end
-            elseif script[i] == ']'
-                if a[p] != 0
+            elseif script[index] == ']'
+                if bytearray[pointer] != 0
                     depth = 1
                     while depth > 0
-                        i -= 1
-                        if script[i] == '['
+                        index -= 1
+                        if script[index] == '['
                             depth -= 1
-                        elseif script[i] == ']'
+                        elseif script[index] == ']'
                             depth += 1
                         end
                     end
                 end
-            elseif script[i] == '.'
+            elseif script[index] == '.'
                 if output_mode == "ascii"
-                    print(Char(a[p]))
+                    print(Char(bytearray[pointer]))
                 elseif output_mode == "numeric"
-                    print(a[p])
+                    print(bytearray[pointer])
                 end
             end
-            i += 1
+            index += 1
         end
     end
 end
