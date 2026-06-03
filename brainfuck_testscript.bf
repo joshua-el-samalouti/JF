@@ -1,4 +1,4 @@
-[ This program prints "Hello World
+[ This program prints "Hello World". Taken from Wikipedia.
 ]
 ++++++++                Set Cell #0 to 8
 [
